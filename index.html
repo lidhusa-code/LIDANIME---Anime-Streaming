@@ -6,7 +6,80 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#090914">
 <title>LIDANIME — Anime Discovery</title>
-<style>
+ 
+/* LIDANIME PREMIUM UPGRADE */
+.hero{
+  position:relative;
+  overflow:hidden;
+  min-height:290px;
+  display:flex;
+  align-items:center;
+  background:
+    linear-gradient(90deg,#10091fee 0%,#17102bcc 52%,#10091e66 100%),
+    url("https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1400&q=85") center/cover;
+  border:1px solid #39305d;
+  box-shadow:0 15px 45px #0006;
+}
+.hero h1{
+  letter-spacing:-1.5px;
+  text-shadow:0 4px 20px #000;
+}
+.hero p{max-width:500px}
+.card{
+  transition:transform .22s,border-color .22s,box-shadow .22s;
+}
+.card:hover{
+  transform:translateY(-5px);
+  border-color:#a78bfa;
+  box-shadow:0 10px 30px #6d28d933;
+}
+.poster{
+  transition:filter .2s;
+}
+.card:hover .poster{filter:brightness(1.12)}
+.section-heading{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin:30px 0 15px;
+}
+.section-heading h2{margin:0}
+.section-heading span{
+  color:#a78bfa;
+  font-size:12px;
+}
+.featured{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
+}
+.featured a{
+  color:white;
+  text-decoration:none;
+  background:#171525;
+  border:1px solid #302a45;
+  border-radius:12px;
+  overflow:hidden;
+}
+.featured img{
+  width:100%;
+  aspect-ratio:3/4;
+  object-fit:cover;
+  display:block;
+}
+.featured strong{
+  display:block;
+  padding:12px;
+  font-size:13px;
+}
+@media(max-width:500px){
+  .hero{min-height:240px}
+  .featured{gap:9px}
+  .featured strong{padding:8px;font-size:12px}
+}
+
+ <style>
 *{box-sizing:border-box}
 body{margin:0;background:#090914;color:#f6f4ff;font-family:Arial,sans-serif}
 header{padding:18px 5%;background:#11101f;border-bottom:1px solid #29243b}
@@ -54,6 +127,39 @@ footer{text-align:center;color:#888;padding:30px 15px;font-size:12px}
   <p>Cari anime, jelajahi genre, lihat poster dan informasi serial, lalu cari tempat menonton resminya.</p>
  </section>
 
+<section>
+  <div class="section-heading">
+    <h2>🔥 Anime Populer</h2>
+    <span>Pilihan buat kamu</span>
+  </div>
+
+  <div class="featured">
+    <a href="https://anilist.co/search/anime?search=Solo%20Leveling">
+      <img loading="lazy"
+       src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/b154587-9z5L5Z9W6L6B.jpg"
+       alt="Solo Leveling"
+       onerror="this.style.display='none'">
+      <strong>Solo Leveling ↗</strong>
+    </a>
+
+    <a href="https://anilist.co/search/anime?search=One%20Piece">
+      <img loading="lazy"
+       src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/b21-9z5L5Z9W6L6B.jpg"
+       alt="One Piece"
+       onerror="this.style.display='none'">
+      <strong>One Piece ↗</strong>
+    </a>
+
+    <a href="https://anilist.co/search/anime?search=Demon%20Slayer">
+      <img loading="lazy"
+       src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/b101922-9z5L5Z9W6L6B.jpg"
+       alt="Demon Slayer"
+       onerror="this.style.display='none'">
+      <strong>Demon Slayer ↗</strong>
+    </a>
+  </div>
+</section>
+ 
  <h2>Jelajahi Anime</h2>
  <form id="searchForm" class="controls">
   <input id="search" placeholder="Cari judul anime..." aria-label="Cari judul anime">
