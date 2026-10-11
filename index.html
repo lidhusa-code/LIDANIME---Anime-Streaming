@@ -1,1 +1,69 @@
-Lidanime
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LIDANIME | Anime Universe</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#090914;color:white;font-family:Arial,sans-serif}
+header{padding:20px;background:#151326;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:24px;font-weight:bold;color:#a78bfa}
+header a{color:white;text-decoration:none}
+.hero{padding:55px 22px;background:linear-gradient(130deg,#25104c,#111827,#090914)}
+.tag{color:#c4b5fd;letter-spacing:2px;font-size:12px}
+h1{font-size:36px;margin:16px 0}
+p{line-height:1.6;color:#c7c5d8}
+.btn{display:inline-block;background:#8b5cf6;color:white;border:0;padding:12px 16px;border-radius:8px;text-decoration:none;cursor:pointer}
+section{padding:24px 16px}
+input,select{background:#19172a;color:white;border:1px solid #39334e;padding:12px;border-radius:8px}
+input{width:100%;margin:10px 0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.card{background:#171527;border:1px solid #302a46;border-radius:12px;overflow:hidden}
+.poster{height:145px;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;font-weight:bold;font-size:18px;background:linear-gradient(140deg,#312e81,#7e22ce,#111827)}
+.card h3{font-size:14px;margin:12px 10px}
+.card p{font-size:12px;margin:8px 10px}
+.card a{margin:0 10px 12px}
+footer{text-align:center;padding:25px;color:#aaa;background:#151326;font-size:12px}
+@media(min-width:650px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}.poster{height:220px}}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">LIDANIME</div>
+<a href="#anime">Jelajahi ↓</a>
+</header>
+<div class="hero">
+<div class="tag">YOUR ANIME UNIVERSE</div>
+<h1>Masuk ke Dunia Anime.</h1>
+<p>Temukan petualangan, pertarungan epik, dan dunia cultivation favoritmu.</p>
+<a class="btn" href="#anime">Jelajahi Anime</a>
+</div>
+<section id="anime">
+<h2>Anime Pilihan</h2>
+<input id="search" placeholder="Cari anime..." oninput="render()">
+<select id="genre" onchange="render()">
+<option value="">Semua genre</option>
+<option>Action</option><option>Fantasy</option><option>Adventure</option>
+</select>
+<div class="grid" id="grid"></div>
+</section>
+<footer>© 2026 LIDANIME<br>Katalog penggemar anime</footer>
+<script>
+const data=[
+["Martial Peak","Action","Cultivation • Martial Arts","https://www.youtube.com/results?search_query=Martial+Peak+official+donghua"],
+["Battle Through the Heavens","Fantasy","Cultivation • Fantasy","https://www.youtube.com/results?search_query=Battle+Through+the+Heavens+official"],
+["Soul Land","Adventure","Fantasy • Action","https://www.youtube.com/results?search_query=Soul+Land+official+donghua"],
+["Perfect World","Action","Cultivation • Fantasy","https://www.youtube.com/results?search_query=Perfect+World+official+donghua"],
+["Swallowed Star","Fantasy","Sci-Fi • Action","https://www.youtube.com/results?search_query=Swallowed+Star+official+donghua"],
+["Throne of Seal","Adventure","Fantasy • Adventure","https://www.youtube.com/results?search_query=Throne+of+Seal+official+donghua"]
+];
+function render(){
+let q=document.getElementById('search').value.toLowerCase();
+let g=document.getElementById('genre').value;
+document.getElementById('grid').innerHTML=data.filter(a=>a[0].toLowerCase().includes(q)&&(!g||a[1]===g)).map(a=>`<article class="card"><div class="poster">${a[0]}</div><h3>${a[0]}</h3><p>${a[2]}</p><a class="btn" target="_blank" rel="noopener" href="${a[3]}">Cari Video ↗</a></article>`).join('');
+}
+render();
+</script>
+</body>
+</html>
