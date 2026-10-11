@@ -1,1 +1,168 @@
-https://github.com/lidhusa-code/LIDANIME---Anime-Streaming/edit/main/index.html
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090811">
+<title>LIDANIME — Anime Streaming</title>
+<meta name="description" content="Temukan anime favoritmu di LIDANIME. Jelajahi anime populer, cari judul, dan lihat detailnya.">
+<style>
+:root{--bg:#090811;--panel:#12111d;--panel2:#191727;--text:#f7f5ff;--muted:#a7a3b8;--purple:#a855f7;--pink:#ec4899;--line:rgba(255,255,255,.09)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(ellipse at 70% -10%,rgba(112,45,180,.22),transparent 38%),var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+button,input,select{font:inherit}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(1180px,92%);margin:auto}
+header{position:sticky;top:0;z-index:20;background:rgba(9,8,17,.84);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.nav{height:70px;display:flex;align-items:center;gap:22px}
+.brand{font-weight:950;font-size:24px;letter-spacing:-1.3px;white-space:nowrap}
+.brand span{color:#c084fc}
+.navlinks{display:flex;gap:20px;color:#c5c0d4;font-size:14px}
+.navlinks a:hover{color:white}
+.search{margin-left:auto;position:relative;max-width:310px;flex:1}
+.search input{width:100%;padding:11px 14px 11px 38px;border-radius:12px;border:1px solid var(--line);background:#171522;color:white;outline:none}
+.search input:focus{border-color:#a855f7}
+.search:before{content:"⌕";position:absolute;left:13px;top:5px;font-size:25px;color:#b9b2cc}
+.hero{min-height:440px;position:relative;display:flex;align-items:end;overflow:hidden;border-radius:0 0 24px 24px;background:#171222}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(90deg,rgba(9,8,17,.98) 0%,rgba(9,8,17,.8) 42%,rgba(9,8,17,.18) 100%),linear-gradient(0deg,#090811 0%,transparent 52%);background-size:cover;background-position:center;transform:scale(1.02)}
+.hero-content{position:relative;z-index:1;padding:50px 0 56px;max-width:570px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(168,85,247,.15);border:1px solid rgba(192,132,252,.28);color:#e9d5ff;border-radius:100px;padding:7px 12px;font-size:12px;font-weight:800;letter-spacing:.8px;text-transform:uppercase}
+.eyebrow:before{content:"";width:7px;height:7px;border-radius:50%;background:#d8b4fe;box-shadow:0 0 12px #c084fc}
+h1{font-size:clamp(36px,7vw,64px);line-height:1.02;letter-spacing:-2px;margin:20px 0 14px}
+.hero p{max-width:500px;color:#d0cbdd;line-height:1.7;margin:0 0 22px}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+.btn{border:0;border-radius:12px;padding:12px 18px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer}
+.btn-primary{background:linear-gradient(135deg,#a855f7,#ec4899);color:white;box-shadow:0 8px 28px rgba(168,85,247,.22)}
+.btn-ghost{background:rgba(255,255,255,.09);border:1px solid var(--line);color:white}
+main{padding:30px 0 58px}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:15px;margin:10px 0 18px}
+.section-head h2{font-size:23px;letter-spacing:-.5px;margin:0}
+.section-head p{color:var(--muted);font-size:13px;margin:5px 0 0}
+.pills{display:flex;gap:8px;overflow:auto;padding:2px 0 16px;scrollbar-width:none}
+.pill{white-space:nowrap;background:#171522;color:#c9c4d7;border:1px solid var(--line);border-radius:999px;padding:8px 13px;font-size:12px;cursor:pointer}
+.pill.active,.pill:hover{background:#38204f;border-color:#a855f7;color:white}
+.grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:18px}
+.card{min-width:0;cursor:pointer;transition:transform .2s}
+.card:hover{transform:translateY(-5px)}
+.poster{position:relative;aspect-ratio:3/4.25;overflow:hidden;border-radius:14px;background:linear-gradient(145deg,#2c2040,#15131f);border:1px solid var(--line)}
+.poster img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s}
+.card:hover .poster img{transform:scale(1.045)}
+.rank{position:absolute;top:9px;left:9px;background:rgba(9,8,17,.8);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:5px 8px;font-size:11px;font-weight:900}
+.score{position:absolute;bottom:9px;right:9px;background:rgba(9,8,17,.86);border-radius:8px;padding:5px 7px;font-size:11px}
+.card h3{font-size:14px;line-height:1.4;margin:10px 0 5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.meta{font-size:12px;color:var(--muted);display:flex;gap:6px;flex-wrap:wrap}
+.status{margin:24px 0;color:var(--muted);text-align:center;font-size:14px}
+.empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:38px 10px;background:var(--panel);border-radius:16px}
+footer{border-top:1px solid var(--line);padding:25px 0 36px;color:var(--muted);font-size:12px;line-height:1.7}
+.footer-row{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:50;display:none;align-items:center;justify-content:center;padding:18px}
+.modal.show{display:flex}
+.modal-box{width:min(720px,100%);max-height:90vh;overflow:auto;background:#14121f;border:1px solid var(--line);border-radius:20px;position:relative}
+.modal-top{display:grid;grid-template-columns:150px 1fr;gap:20px;padding:22px}
+.modal-top img{width:100%;border-radius:12px}
+.modal h2{margin:2px 0 8px;font-size:24px}
+.modal p{color:#c7c1d7;line-height:1.65;font-size:14px}
+.close{position:absolute;right:12px;top:12px;background:#272333;border:0;color:white;border-radius:50%;width:36px;height:36px;font-size:20px;cursor:pointer}
+.small{font-size:11px;color:#928ca6}
+@media(max-width:850px){.grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.hero{min-height:390px}.navlinks{display:none}}
+@media(max-width:580px){.nav{height:62px;gap:12px}.brand{font-size:21px}.search{max-width:none}.hero{min-height:390px;border-radius:0 0 18px 18px}.hero-bg{background-position:58% center}.hero-content{padding:38px 0 42px}.hero p{font-size:14px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.section-head h2{font-size:20px}.section-head p{font-size:12px}.modal-top{grid-template-columns:105px 1fr;gap:13px;padding:16px}.modal h2{font-size:19px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#" aria-label="LIDANIME beranda">LID<span>ANIME</span></a>
+    <nav class="navlinks"><a href="#home">Beranda</a><a href="#popular">Anime Populer</a><a href="#about">Tentang</a></nav>
+    <label class="search"><input id="searchInput" type="search" placeholder="Cari anime..." aria-label="Cari anime"></label>
+  </div>
+</header>
+<section class="hero" id="home">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="wrap">
+    <div class="hero-content">
+      <span class="eyebrow">Anime discovery</span>
+      <h1>Temukan dunia<br><span style="background:linear-gradient(90deg,#d8b4fe,#f9a8d4);background-clip:text;color:transparent">anime favoritmu.</span></h1>
+      <p>Jelajahi anime populer, temukan cerita baru, dan simpan judul yang ingin kamu tonton. Semua dalam satu tampilan yang nyaman di HP.</p>
+      <div class="actions"><a class="btn btn-primary" href="#popular">✦ Jelajahi Anime</a><a class="btn btn-ghost" href="#about">Tentang LIDANIME</a></div>
+    </div>
+  </div>
+</section>
+<main class="wrap" id="popular">
+  <div class="section-head">
+    <div><h2>🔥 Anime Populer</h2><p>Poster dan informasi dimuat otomatis dari katalog anime.</p></div>
+  </div>
+  <div class="pills" id="genrePills">
+    <button class="pill active" data-genre="all">Semua</button>
+    <button class="pill" data-genre="Action">Action</button>
+    <button class="pill" data-genre="Adventure">Adventure</button>
+    <button class="pill" data-genre="Fantasy">Fantasy</button>
+    <button class="pill" data-genre="Comedy">Comedy</button>
+    <button class="pill" data-genre="Drama">Drama</button>
+    <button class="pill" data-genre="Romance">Romance</button>
+  </div>
+  <div class="grid" id="animeGrid" aria-live="polite"></div>
+  <div class="status" id="status">Memuat poster anime…</div>
+</main>
+<footer id="about">
+  <div class="wrap footer-row">
+    <div><div class="brand">LID<span>ANIME</span></div><p>Tempat menemukan anime berikutnya untuk masuk daftar tontonanmu.</p></div>
+    <div style="max-width:460px">Catatan: LIDANIME adalah katalog penemuan anime. Tombol detail menampilkan informasi dan tautan pencarian resmi; situs ini tidak menyimpan atau meng-host video anime.</div>
+  </div>
+</footer>
+<div class="modal" id="animeModal" role="dialog" aria-modal="true" aria-label="Detail anime">
+  <div class="modal-box"><button class="close" id="closeModal" aria-label="Tutup">×</button><div class="modal-top"><img id="modalImage" alt="Poster anime"><div><div class="small" id="modalMeta"></div><h2 id="modalTitle"></h2><div class="meta" id="modalGenres"></div><p id="modalSynopsis"></p><a id="officialSearch" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Cari tempat menonton ↗</a></div></div></div>
+</div>
+<script>
+const grid=document.getElementById('animeGrid'),statusEl=document.getElementById('status'),searchInput=document.getElementById('searchInput');
+let animeList=[],activeGenre='all';
+const fallback='data:image/svg+xml;charset=UTF-8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 420"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#51256d"/><stop offset="1" stop-color="#14121f"/></linearGradient></defs><rect width="300" height="420" fill="url(#g)"/><text x="150" y="195" font-size="28" fill="#eadcff" text-anchor="middle" font-family="Arial" font-weight="bold">LIDANIME</text><text x="150" y="230" font-size="13" fill="#c4b5fd" text-anchor="middle" font-family="Arial">Anime poster</text></svg>');
+function escapeHTML(s=''){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function genresOf(a){return (a.genres||[]).map(g=>g.name)}
+function render(){
+ const q=searchInput.value.trim().toLowerCase();
+ const list=animeList.filter(a=>(activeGenre==='all'||genresOf(a).includes(activeGenre))&&(`${a.title||''} ${a.title_english||''} ${genresOf(a).join(' ')}`).toLowerCase().includes(q));
+ grid.innerHTML='';
+ if(!list.length){grid.innerHTML='<div class="empty">Anime tidak ditemukan. Coba kata kunci atau genre lain.</div>';return}
+ list.forEach((a,i)=>{
+  const image=a.images?.jpg?.large_image_url||a.images?.jpg?.image_url||fallback;
+  const card=document.createElement('article');card.className='card';card.tabIndex=0;card.setAttribute('role','button');card.setAttribute('aria-label','Lihat detail '+(a.title||'anime'));
+  card.innerHTML=`<div class="poster"><img loading="lazy" src="${escapeHTML(image)}" alt="Poster ${escapeHTML(a.title||'anime')}" onerror="this.onerror=null;this.src='${fallback}'"><span class="rank">#${i+1}</span><span class="score">★ ${a.score??'—'}</span></div><h3>${escapeHTML(a.title||'Tanpa judul')}</h3><div class="meta"><span>${escapeHTML(a.type||'Anime')}</span><span>•</span><span>${a.episodes??'?'} eps</span></div>`;
+  card.addEventListener('click',()=>showDetail(a));card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();showDetail(a)}});
+  grid.appendChild(card);
+ });
+}
+function showDetail(a){
+ document.getElementById('modalImage').src=a.images?.jpg?.large_image_url||fallback;
+ document.getElementById('modalTitle').textContent=a.title||'Tanpa judul';
+ document.getElementById('modalMeta').textContent=`${a.type||'Anime'} • ${a.year||a.aired?.prop?.from?.year||'Tahun tidak tersedia'} • ★ ${a.score??'—'}`;
+ document.getElementById('modalGenres').textContent=genresOf(a).join(' · ')||'Genre tidak tersedia';
+ document.getElementById('modalSynopsis').textContent=a.synopsis||'Sinopsis belum tersedia.';
+ document.getElementById('officialSearch').href='https://www.google.com/search?q='+encodeURIComponent((a.title_english||a.title)+' official streaming');
+ document.getElementById('animeModal').classList.add('show');
+}
+document.getElementById('closeModal').addEventListener('click',()=>document.getElementById('animeModal').classList.remove('show'));
+document.getElementById('animeModal').addEventListener('click',e=>{if(e.target.id==='animeModal')e.currentTarget.classList.remove('show')});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.getElementById('animeModal').classList.remove('show')});
+searchInput.addEventListener('input',render);
+document.getElementById('genrePills').addEventListener('click',e=>{
+ const b=e.target.closest('button[data-genre]');if(!b)return;
+ activeGenre=b.dataset.genre;document.querySelectorAll('.pill').forEach(p=>p.classList.toggle('active',p===b));render();
+});
+async function loadAnime(){
+ try{
+  const response=await fetch('https://api.jikan.moe/v4/top/anime?filter=bypopularity&limit=25');
+  if(!response.ok)throw new Error('Katalog sedang tidak tersedia');
+  const data=await response.json();animeList=data.data||[];
+  const featured=animeList.find(a=>a.images?.jpg?.large_image_url)||animeList[0];
+  if(featured?.images?.jpg?.large_image_url)document.getElementById('heroBg').style.backgroundImage=`linear-gradient(90deg,rgba(9,8,17,.98) 0%,rgba(9,8,17,.8) 42%,rgba(9,8,17,.18) 100%),linear-gradient(0deg,#090811 0%,transparent 52%),url("${featured.images.jpg.large_image_url}")`;
+  render();statusEl.textContent=`Menampilkan ${animeList.length} anime populer.`;
+ }catch(err){
+  statusEl.textContent='Katalog gagal dimuat. Periksa koneksi internet lalu muat ulang halaman.';
+  grid.innerHTML='<div class="empty">Poster anime memerlukan koneksi internet. Coba buka ulang beberapa saat lagi.</div>';
+ }
+}
+loadAnime();
+</script>
+</body>
+</html>
