@@ -5,500 +5,297 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0b0913">
-<meta name="description" content="LIDANIME - Temukan anime favorit, jelajahi genre, dan cari layanan streaming resmi.">
-<title>LIDANIME — Anime Discovery</title>
-
+<title>LIDANIME — Anime Universe</title>
 <style>
-:root{
- --bg:#0b0913;--panel:#151220;--line:#302840;
- --purple:#9b78ff;--muted:#aaa4b9;--white:#f8f6ff
-}
+:root{--bg:#0b0913;--panel:#171321;--purple:#a78bfa;--text:#f7f4ff;--muted:#aaa2bb}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
- margin:0;background:var(--bg);color:var(--white);
- font-family:Arial,Helvetica,sans-serif
-}
-button,input,select{font:inherit}
-button,a,select{touch-action:manipulation}
-a{color:inherit}
-header{
- position:sticky;top:0;z-index:10;
- background:#100d1bee;backdrop-filter:blur(15px);
- border-bottom:1px solid var(--line)
-}
-.nav{
- max-width:1200px;margin:auto;padding:15px 22px;
- display:flex;align-items:center;justify-content:space-between;gap:15px
-}
-.logo{font-size:25px;font-weight:900;letter-spacing:-1px}
-.logo span{color:var(--purple)}
-.nav small{color:var(--muted);font-size:11px}
-main{max-width:1200px;margin:auto;padding:24px 22px 50px}
-.hero{
- position:relative;overflow:hidden;min-height:330px;
- display:flex;align-items:center;border-radius:20px;
- border:1px solid #40325e;
- background:linear-gradient(90deg,#171026 0%,#171026ed 38%,#17102655 100%);
-}
-.hero-art{
- position:absolute;inset:0;width:100%;height:100%;
- object-fit:cover;object-position:center 35%;opacity:.55
-}
-.hero-content{position:relative;z-index:1;padding:30px;max-width:650px}
-.eyebrow{font-size:11px;letter-spacing:2px;color:#c8b5ff;font-weight:bold}
-.hero h1{font-size:clamp(32px,6vw,55px);letter-spacing:-2px;margin:15px 0 12px}
-.hero p{color:#d1cbdc;line-height:1.7;max-width:480px;font-size:14px}
-.btn{
- display:inline-flex;align-items:center;justify-content:center;gap:8px;
- padding:12px 17px;border:0;border-radius:9px;
- background:var(--purple);color:#100b1d;
- text-decoration:none;font-weight:bold;font-size:13px;cursor:pointer
-}
-.btn.secondary{background:#282136;color:white;border:1px solid #443658}
-.section-title{
- display:flex;justify-content:space-between;align-items:center;
- gap:10px;margin:30px 0 15px
-}
-.section-title h2{font-size:21px;margin:0}
-.section-title span{font-size:12px;color:var(--muted)}
-.controls{
- display:grid;grid-template-columns:minmax(0,1fr) 190px;gap:10px;
- margin:18px 0
-}
-input,select{
- width:100%;min-width:0;padding:14px;
- border:1px solid #393146;border-radius:10px;
- background:#171321;color:white;outline:none
-}
-input:focus,select:focus{border-color:var(--purple)}
-.grid{
- display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:15px
-}
-.card{
- overflow:hidden;min-width:0;border:1px solid var(--line);
- background:var(--panel);border-radius:12px;cursor:pointer;
- transition:transform .2s,border-color .2s
-}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
+header{padding:20px 5%;background:#100d1b;border-bottom:1px solid #30263f;position:sticky;top:0;z-index:5}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.logo{font-size:25px;font-weight:900;letter-spacing:1px;color:var(--purple)}
+.logo span{color:white}
+.tagline{font-size:12px;color:var(--muted);margin-top:5px}
+.search{width:100%;margin-top:17px;padding:13px 15px;border:1px solid #393047;border-radius:12px;background:#1c1727;color:white;font-size:15px;outline:none}
+.search:focus{border-color:var(--purple)}
+main{padding:22px 5%;max-width:1500px;margin:auto}
+.hero{padding:27px 22px;border-radius:18px;background:linear-gradient(120deg,#30204b,#151020 70%);margin-bottom:25px}
+.hero h1{font-size:clamp(25px,5vw,42px);margin:0 0 10px}
+.hero p{color:#d0c5e1;line-height:1.6;margin:0}
+.section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:25px 0 15px}
+.section-head h2{font-size:20px;margin:0}
+#status{color:var(--muted);font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(135px,1fr));gap:15px}
+.card{cursor:pointer;min-width:0;background:var(--panel);border:1px solid #292235;border-radius:12px;overflow:hidden;transition:.2s}
 .card:hover{transform:translateY(-4px);border-color:var(--purple)}
-.poster{
- display:block;width:100%;aspect-ratio:3/4;
- object-fit:cover;background:#211a30
-}
-.card-info{padding:11px}
-.card h3{font-size:13px;line-height:1.5;margin:0 0 7px}
-.meta{font-size:11px;line-height:1.7;color:var(--muted)}
-.tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
-.tag{
- padding:5px 7px;border-radius:5px;background:#2a203b;
- color:#d9cbff;font-size:10px
-}
-.card:focus-visible,button:focus-visible,a:focus-visible{
- outline:2px solid var(--purple);outline-offset:3px
-}
-.status{font-size:13px;color:var(--muted);line-height:1.7}
-.center{text-align:center;padding:20px}
-.detail{
- margin-top:32px;padding:20px;display:grid;
- grid-template-columns:190px minmax(0,1fr);gap:22px;
- background:var(--panel);border:1px solid var(--line);border-radius:16px
-}
-.detail[hidden]{display:none}
-.detail-poster{width:100%;border-radius:10px;background:#211a30}
-.detail h2{margin:0 0 10px;font-size:25px}
-.description{font-size:14px;line-height:1.8;color:#d0cadc}
-.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}
-.episodes{
- margin-top:18px;padding:14px;background:#100e18;border-radius:10px
-}
-.episodes h3{font-size:14px;margin:0 0 8px}
-footer{
- border-top:1px solid var(--line);text-align:center;
- padding:25px 15px;color:#928ba0;font-size:12px;line-height:1.8
-}
-@media(max-width:850px){
- .grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
-}
-@media(max-width:600px){
- .nav{padding:14px}
- .nav small{max-width:110px;text-align:right;line-height:1.5}
- main{padding:16px 13px 35px}
- .hero{min-height:300px}
- .hero-content{padding:22px}
- .hero h1{letter-spacing:-1px}
- .controls{grid-template-columns:1fr}
- .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
- .card-info{padding:9px}
- .detail{grid-template-columns:105px minmax(0,1fr);gap:13px;padding:12px}
- .detail h2{font-size:19px}
- .description{font-size:13px}
- .actions .btn{padding:11px;font-size:12px}
-}
+.card img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;background:#211a2d}
+.card-info{padding:10px}
+.card h3{font-size:14px;line-height:1.4;margin:0 0 7px}
+.card p{font-size:12px;color:var(--muted);margin:0}
+.btn{border:0;border-radius:9px;background:var(--purple);color:#160e25;padding:11px 15px;font-weight:bold;cursor:pointer;text-decoration:none;display:inline-block}
+.btn.secondary{background:#2a2338;color:white;border:1px solid #49405b}
+button:disabled{opacity:.5}
+#detail{margin-top:25px;padding:18px;background:var(--panel);border:1px solid #352a47;border-radius:16px}
+.detail-top{display:grid;grid-template-columns:minmax(110px,190px) 1fr;gap:20px}
+#poster{width:100%;border-radius:12px;aspect-ratio:3/4;object-fit:cover;background:#211a2d}
+#detail h2{margin:0 0 10px;font-size:24px}
+.meta{font-size:13px;color:var(--muted);line-height:1.7}
+.description{font-size:14px;line-height:1.7;color:#e0d9eb}
+.actions{display:flex;flex-wrap:wrap;gap:9px;margin:15px 0}
+.player{margin-top:22px;padding:14px;background:#0c0a12;border:1px solid #352a47;border-radius:14px}
+.player h3{margin:0 0 14px}
+video{display:block;width:100%;aspect-ratio:16/9;background:#000;border-radius:10px}
+.player select{width:100%;padding:12px;margin-top:12px;border-radius:9px;background:#211a2d;border:1px solid #49405b;color:white}
+#playerStatus{font-size:13px;color:var(--muted);line-height:1.5}
+.hidden{display:none!important}
+footer{text-align:center;padding:30px 15px;color:var(--muted);font-size:12px}
+.empty{grid-column:1/-1;padding:24px;text-align:center;color:var(--muted);background:var(--panel);border-radius:12px}
+@media(max-width:550px){main{padding:17px 4%}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.detail-top{grid-template-columns:110px 1fr;gap:13px}#detail h2{font-size:19px}.hero{padding:22px 17px}}
 </style>
 </head>
-
 <body>
 <header>
- <div class="nav">
-  <div class="logo">LID<span>ANIME</span></div>
-  <small>ANIME DISCOVERY • INDONESIA</small>
- </div>
+  <div class="top">
+    <div>
+      <div class="logo">LID<span>ANIME</span></div>
+      <div class="tagline">Your Anime Universe · Discover your next story</div>
+    </div>
+    <button class="btn secondary" onclick="loadAnime()">↻ Refresh</button>
+  </div>
+  <input id="search" class="search" placeholder="Cari anime favorit kamu..." autocomplete="off">
 </header>
 
 <main>
- <section class="hero">
-  <img class="hero-art" id="heroArt" alt="" hidden>
-  <div class="hero-content">
-   <div class="eyebrow">YOUR NEXT ANIME STARTS HERE</div>
-   <h1>Masuk ke Dunia Anime.</h1>
-   <p>Temukan anime favoritmu, jelajahi berbagai genre, lihat informasi serial, dan cari pilihan streaming resminya.</p>
-   <a class="btn" href="#explore">⌕ Jelajahi Anime</a>
+  <section class="hero">
+    <h1>Enter Your Anime World.</h1>
+    <p>Temukan anime favorit, jelajahi genre, lihat detail cerita, dan putar video yang tersedia.</p>
+  </section>
+
+  <div class="section-head">
+    <h2>🔥 Anime Populer</h2>
+    <span id="status">Memuat anime...</span>
   </div>
- </section>
+  <div id="catalog" class="grid"></div>
 
- <section id="explore">
-  <div class="section-title">
-   <h2>🔥 Anime Populer</h2>
-   <span>Data katalog online</span>
-  </div>
-  <p class="status" id="featuredStatus" aria-live="polite">Memuat anime populer...</p>
-  <div class="grid" id="featured"></div>
- </section>
+  <section id="detail" class="hidden">
+    <div class="detail-top">
+      <img id="poster" alt="Poster anime">
+      <div>
+        <h2 id="animeTitle">Detail Anime</h2>
+        <div id="animeMeta" class="meta"></div>
+        <p id="animeDescription" class="description"></p>
+      </div>
+    </div>
 
- <section>
-  <div class="section-title">
-   <h2>🔎 Cari Anime</h2>
-   <span id="resultCount"></span>
-  </div>
+    <div class="actions">
+      <a id="officialLink" class="btn" href="#" target="_blank" rel="noopener">Cari Streaming Resmi ↗</a>
+      <a id="aniListLink" class="btn secondary" href="#" target="_blank" rel="noopener">Info Lengkap ↗</a>
+    </div>
 
-  <form id="searchForm" class="controls">
-   <input id="search" type="search"
-    placeholder="Cari Naruto, One Piece, Solo Leveling..."
-    autocomplete="off" aria-label="Cari judul anime">
-   <select id="genre" aria-label="Filter genre">
-    <option value="">Semua Genre</option>
-    <option>Action</option>
-    <option>Adventure</option>
-    <option>Comedy</option>
-    <option>Drama</option>
-    <option>Fantasy</option>
-    <option>Horror</option>
-    <option>Mystery</option>
-    <option>Romance</option>
-    <option>Sci-Fi</option>
-    <option>Sports</option>
-    <option>Supernatural</option>
-   </select>
-  </form>
-
-  <p class="status" id="status" aria-live="polite">Menyiapkan katalog...</p>
-  <div class="grid" id="catalog"></div>
-  <div class="center">
-   <button id="more" class="btn secondary" hidden>
-    Muat Anime Lainnya
-   </button>
-  </div>
- </section>
-
- <section class="detail" id="detail" hidden>
-  <img class="detail-poster" id="detailPoster" alt="Poster anime">
-  <div>
-   <div class="eyebrow">ANIME DETAILS</div>
-   <h2 id="detailTitle"></h2>
-   <div class="meta" id="detailMeta"></div>
-   <div class="tags" id="detailGenres"></div>
-   <p class="description" id="detailDescription"></p>
-
-   <div class="episodes">
-    <h3>📺 Informasi Episode</h3>
-    <p class="meta" id="episodeInfo"></p>
-    <p class="meta">Daftar ini menampilkan informasi serial, bukan file video episode.</p>
-   </div>
-
-   <div class="actions">
-    <a id="watchOfficial" class="btn"
-       target="_blank" rel="noopener noreferrer">
-       ▶ Cari Streaming Resmi
-    </a>
-    <a id="aniListLink" class="btn secondary"
-       target="_blank" rel="noopener noreferrer">
-       Detail Anime ↗
-    </a>
-    <a id="trailerLink" class="btn secondary"
-       target="_blank" rel="noopener noreferrer" hidden>
-       Trailer ↗
-    </a>
-   </div>
-  </div>
- </section>
+    <div class="player">
+      <h3>🎬 LIDANIME Player</h3>
+      <video id="animeVideo" controls playsinline preload="metadata">
+        Browser kamu tidak mendukung pemutar video.
+      </video>
+      <select id="episodeSelect" aria-label="Pilih episode">
+        <option value="">Pilih episode</option>
+      </select>
+      <p id="playerStatus">Pilih anime untuk melihat video yang tersedia.</p>
+    </div>
+    <div class="actions">
+      <button class="btn secondary" onclick="closeDetail()">✕ Tutup Detail</button>
+    </div>
+  </section>
 </main>
 
 <footer>
- <strong>LIDANIME</strong><br>
- Temukan anime favoritmu dalam satu tempat.<br>
- Data anime dari AniList. Ketersediaan tayangan bergantung pada layanan dan wilayah.
+  LIDANIME © 2026 · Informasi anime dari AniList API.<br>
+  Video harus berasal dari sumber yang kamu miliki atau berhak gunakan.
 </footer>
 
 <script>
-(function(){
-"use strict";
+const API = "https://graphql.anilist.co";
 
-const API="https://graphql.anilist.co";
-const $=id=>document.getElementById(id);
+/*
+  TAMBAHKAN VIDEO DI SINI.
+  Ganti ID anime dengan ID AniList yang sesuai.
+  URL harus berupa URL file video langsung yang sah,
+  misalnya file MP4 yang kamu miliki atau berhak putar.
 
-const QUERY=`
-query($page:Int,$search:String,$genre:String,$sort:[MediaSort]){
- Page(page:$page,perPage:20){
-  pageInfo{hasNextPage}
-  media(type:ANIME,isAdult:false,search:$search,genre:$genre,sort:$sort){
-   id
-   title{romaji english native}
-   coverImage{extraLarge large}
-   bannerImage
-   description(asHtml:false)
-   genres
-   episodes
-   status
-   seasonYear
-   averageScore
-   siteUrl
-   trailer{site id}
+  Contoh format:
+  "ID_ANIME": [
+    { title: "Episode 1", url: "https://domainmu.com/video1.mp4" },
+    { title: "Episode 2", url: "https://domainmu.com/video2.mp4" }
+  ]
+*/
+const VIDEO_LIBRARY = {
+  // "ID_ANIME": [
+  //   { title: "Episode 1", url: "URL_VIDEO_MP4_KAMU" }
+  // ]
+};
+
+const catalog = document.getElementById("catalog");
+const statusText = document.getElementById("status");
+const searchInput = document.getElementById("search");
+const detail = document.getElementById("detail");
+const video = document.getElementById("animeVideo");
+const episodeSelect = document.getElementById("episodeSelect");
+const playerStatus = document.getElementById("playerStatus");
+
+let searchTimer;
+let requestNumber = 0;
+
+const QUERY = `
+query ($search: String, $page: Int) {
+  Page(page: $page, perPage: 24) {
+    media(search: $search, type: ANIME, sort: POPULARITY_DESC) {
+      id
+      title { romaji english native }
+      coverImage { large extraLarge }
+      episodes
+      averageScore
+      seasonYear
+      format
+      genres
+      description(asHtml: false)
+      siteUrl
+    }
   }
- }
 }`;
 
-let page=1;
-let busy=false;
-let requestToken=0;
-let debounce;
-let activeAnime=null;
-
-function titleOf(a){
- return a.title.english||a.title.romaji||a.title.native||"Anime";
-}
-
-function escapeHTML(s){
- return String(s||"").replace(/[&<>"']/g,c=>({
-  "&":"&amp;","<":"&lt;",">":"&gt;",
-  '"':"&quot;","'":"&#39;"
- })[c]);
-}
-
-async function fetchAnime({pageNum=1,searchText="",genreName="",sort="TRENDING_DESC"}={}){
- const response=await fetch(API,{
-  method:"POST",
-  headers:{
-   "Content-Type":"application/json",
-   "Accept":"application/json"
-  },
-  body:JSON.stringify({
-   query:QUERY,
-   variables:{
-    page:pageNum,
-    search:searchText||null,
-    genre:genreName||null,
-    sort:[sort]
-   }
-  })
- });
- if(!response.ok)throw new Error("Permintaan katalog gagal ("+response.status+")");
- const json=await response.json();
- if(json.errors)throw new Error(json.errors[0].message);
- return json.data.Page;
-}
-
-function createCard(a){
- const card=document.createElement("article");
- card.className="card";
- card.tabIndex=0;
- card.setAttribute("role","button");
- card.setAttribute("aria-label","Detail "+titleOf(a));
-
- const img=document.createElement("img");
- img.className="poster";
- img.loading="lazy";
- img.alt="Poster "+titleOf(a);
- img.src=a.coverImage.extraLarge||a.coverImage.large;
-
- const info=document.createElement("div");
- info.className="card-info";
-
- const h=document.createElement("h3");
- h.textContent=titleOf(a);
-
- const meta=document.createElement("div");
- meta.className="meta";
- meta.textContent=(a.seasonYear||"Tahun tidak tersedia")+
-  " • "+(a.episodes==null?"Episode belum diketahui":a.episodes+" episode")+
-  (a.averageScore?" • "+(a.averageScore/10).toFixed(1):"");
-
- const tags=document.createElement("div");
- tags.className="tags";
- (a.genres||[]).slice(0,2).forEach(g=>{
-  const tag=document.createElement("span");
-  tag.className="tag";
-  tag.textContent=g;
-  tags.appendChild(tag);
- });
-
- info.append(h,meta,tags);
- card.append(img,info);
- card.onclick=()=>showDetail(a);
- card.onkeydown=e=>{
-  if(e.key==="Enter"||e.key===" "){
-   e.preventDefault();showDetail(a);
-  }
- };
- return card;
-}
-
-function draw(target,items){
- target.replaceChildren();
- items.forEach(a=>target.appendChild(createCard(a)));
-}
-
-async function loadFeatured(){
- try{
-  const data=await fetchAnime({pageNum:1,sort:"TRENDING_DESC"});
-  const items=data.media;
-  draw($("featured"),items.slice(0,10));
-  $("featuredStatus").textContent=items.length
-   ?"Pilih poster untuk melihat informasi anime."
-   :"Anime populer belum tersedia.";
-
-  if(items[0]&&items[0].bannerImage){
-   $("heroArt").src=items[0].bannerImage;
-   $("heroArt").hidden=false;
-  }
- }catch(e){
-  $("featuredStatus").textContent=
-   "Katalog populer gagal dimuat. Periksa koneksi internet.";
- }
-}
-
-async function loadCatalog(append=false){
- if(busy)return;
- busy=true;
- const token=++requestToken;
- $("more").hidden=true;
- $("status").textContent="Memuat katalog anime...";
-
- const currentPage=append?page:1;
- const q=$("search").value.trim();
- const g=$("genre").value;
-
- try{
-  const data=await fetchAnime({
-   pageNum:currentPage,
-   searchText:q,
-   genreName:g,
-   sort:q?"SEARCH_MATCH":"TRENDING_DESC"
+async function fetchAnime(search = "") {
+  const res = await fetch(API, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "Accept": "application/json" },
+    body: JSON.stringify({
+      query: QUERY,
+      variables: { search: search || null, page: 1 }
+    })
   });
-  if(token!==requestToken)return;
-
-  const items=data.media;
-  if(!append)$("catalog").replaceChildren();
-  items.forEach(a=>$("catalog").appendChild(createCard(a)));
-
-  $("resultCount").textContent=
-   "Halaman "+currentPage;
-  $("status").textContent=
-   $("catalog").children.length
-    ?"Pilih poster untuk melihat sinopsis dan informasi serial."
-    :"Anime tidak ditemukan. Coba judul atau genre lain.";
-
-  $("more").hidden=!data.pageInfo.hasNextPage;
- }catch(e){
-  if(token!==requestToken)return;
-  $("status").textContent=
-   "Katalog gagal dimuat. Periksa koneksi, lalu coba lagi.";
-  const retry=document.createElement("button");
-  retry.className="btn";
-  retry.textContent="Coba Lagi";
-  retry.onclick=()=>loadCatalog(false);
-  $("catalog").replaceChildren(retry);
- }finally{
-  if(token===requestToken)busy=false;
- }
+  if (!res.ok) throw new Error("API tidak merespons");
+  const json = await res.json();
+  if (json.errors) throw new Error("Data anime gagal dimuat");
+  return json.data.Page.media;
 }
 
-function showDetail(a){
- activeAnime=a;
- const name=titleOf(a);
- $("detail").hidden=false;
- $("detailPoster").src=a.coverImage.extraLarge||a.coverImage.large;
- $("detailPoster").alt="Poster "+name;
- $("detailTitle").textContent=name;
-
- $("detailMeta").textContent=
-  (a.seasonYear||"Tahun tidak diketahui")+" • "+
-  (a.episodes==null?"Jumlah episode belum diketahui":a.episodes+" episode")+
-  (a.averageScore?" • Skor "+(a.averageScore/10).toFixed(1)+"/10":"")+
-  (a.status?" • "+a.status.replaceAll("_"," "):"");
-
- $("detailDescription").textContent=
-  a.description
-   ?a.description.replace(/<[^>]*>/g," ").replace(/\s+/g," ").trim()
-   :"Sinopsis belum tersedia.";
-
- $("detailGenres").replaceChildren();
- (a.genres||[]).forEach(g=>{
-  const tag=document.createElement("span");
-  tag.className="tag";
-  tag.textContent=g;
-  $("detailGenres").appendChild(tag);
- });
-
- $("episodeInfo").textContent=
-  a.episodes==null
-   ?"Informasi jumlah episode belum tersedia."
-   :"Serial ini tercatat memiliki "+a.episodes+" episode.";
-
- $("watchOfficial").href=
-  "https://www.justwatch.com/id/search?q="+encodeURIComponent(name);
- $("aniListLink").href=a.siteUrl||
-  "https://anilist.co/search/anime?search="+encodeURIComponent(name);
-
- const t=$("trailerLink");
- if(a.trailer&&a.trailer.site==="youtube"&&a.trailer.id){
-  t.href="https://www.youtube.com/watch?v="+encodeURIComponent(a.trailer.id);
-  t.hidden=false;
- }else{
-  t.hidden=true;
- }
- $("detail").scrollIntoView({behavior:"smooth",block:"start"});
+function escapeHTML(value = "") {
+  return String(value).replace(/[&<>"']/g, c => ({
+    "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
+  }[c]));
 }
 
-$("searchForm").addEventListener("submit",e=>{
- e.preventDefault();
- clearTimeout(debounce);
- page=1;
- loadCatalog(false);
+function titleOf(a) {
+  return a.title.english || a.title.romaji || a.title.native || "Anime";
+}
+
+function renderCatalog(list) {
+  catalog.innerHTML = "";
+  if (!list.length) {
+    catalog.innerHTML = '<div class="empty">Anime tidak ditemukan. Coba kata kunci lain.</div>';
+    return;
+  }
+
+  list.forEach(a => {
+    const card = document.createElement("article");
+    card.className = "card";
+    card.tabIndex = 0;
+    card.innerHTML = `
+      <img loading="lazy" src="${escapeHTML(a.coverImage.extraLarge || a.coverImage.large || "")}" alt="Poster ${escapeHTML(titleOf(a))}">
+      <div class="card-info">
+        <h3>${escapeHTML(titleOf(a))}</h3>
+        <p>${a.seasonYear || "Tahun tidak diketahui"} · ★ ${a.averageScore ? (a.averageScore / 10).toFixed(1) : "N/A"}</p>
+      </div>`;
+    card.onclick = () => showDetail(a);
+    card.onkeydown = e => {
+      if (e.key === "Enter") showDetail(a);
+    };
+    catalog.appendChild(card);
+  });
+}
+
+async function loadAnime(search = "") {
+  const currentRequest = ++requestNumber;
+  statusText.textContent = "Memuat...";
+  catalog.innerHTML = '<div class="empty">Sedang mengambil katalog anime...</div>';
+
+  try {
+    const list = await fetchAnime(search);
+    if (currentRequest !== requestNumber) return;
+    renderCatalog(list);
+    statusText.textContent = list.length + " anime ditemukan";
+  } catch (err) {
+    if (currentRequest !== requestNumber) return;
+    catalog.innerHTML = '<div class="empty">Gagal memuat katalog. Periksa koneksi internet lalu tekan Refresh.</div>';
+    statusText.textContent = "Koneksi bermasalah";
+  }
+}
+
+function showDetail(a) {
+  detail.classList.remove("hidden");
+  document.getElementById("poster").src = a.coverImage.extraLarge || a.coverImage.large || "";
+  document.getElementById("animeTitle").textContent = titleOf(a);
+  document.getElementById("animeMeta").textContent =
+    `${a.format || "Anime"} · ${a.seasonYear || "Tahun tidak diketahui"} · ${a.episodes || "?"} episode · Skor ${a.averageScore ? (a.averageScore / 10).toFixed(1) : "N/A"} · ${(a.genres || []).join(", ")}`;
+  document.getElementById("animeDescription").textContent =
+    (a.description || "Belum ada deskripsi.").replace(/<[^>]*>/g, "");
+  document.getElementById("officialLink").href =
+    "https://www.justwatch.com/id/search?q=" + encodeURIComponent(titleOf(a));
+  document.getElementById("aniListLink").href = a.siteUrl || "https://anilist.co";
+
+  loadVideos(a.id);
+  detail.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function loadVideos(animeId) {
+  video.pause();
+  video.removeAttribute("src");
+  video.load();
+  episodeSelect.innerHTML = "";
+
+  const episodes = VIDEO_LIBRARY[String(animeId)] || [];
+
+  if (!episodes.length) {
+    episodeSelect.add(new Option("Video belum ditambahkan", ""));
+    playerStatus.textContent =
+      "Belum ada URL video untuk anime ini. Tambahkan video yang sah di VIDEO_LIBRARY pada kode.";
+    return;
+  }
+
+  episodes.forEach((ep, index) => {
+    episodeSelect.add(new Option(ep.title || `Episode ${index + 1}`, String(index)));
+  });
+
+  episodeSelect.onchange = () => {
+    const ep = episodes[Number(episodeSelect.value)];
+    if (!ep) return;
+    video.pause();
+    video.src = ep.url;
+    video.load();
+    playerStatus.textContent = "Memuat " + (ep.title || "episode") + "...";
+  };
+
+  video.oncanplay = () => {
+    playerStatus.textContent = "Video siap diputar.";
+  };
+  video.onerror = () => {
+    playerStatus.textContent =
+      "Video gagal diputar. Pastikan URL benar, file tersedia, dan server mengizinkan pemutaran.";
+  };
+
+  episodeSelect.value = "0";
+  episodeSelect.onchange();
+}
+
+function closeDetail() {
+  video.pause();
+  detail.classList.add("hidden");
+}
+
+searchInput.addEventListener("input", () => {
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(() => loadAnime(searchInput.value.trim()), 450);
 });
 
-$("search").addEventListener("input",()=>{
- clearTimeout(debounce);
- debounce=setTimeout(()=>{
-  page=1;
-  loadCatalog(false);
- },600);
-});
-
-$("genre").addEventListener("change",()=>{
- page=1;
- loadCatalog(false);
-});
-
-$("more").addEventListener("click",()=>{
- if(!busy){
-  page++;
-  loadCatalog(true);
- }
-});
-
-loadFeatured();
-loadCatalog(false);
-})();
+loadAnime();
 </script>
 </body>
 </html>
