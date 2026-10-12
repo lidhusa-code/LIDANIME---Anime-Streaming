@@ -4,134 +4,227 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>LIDCOMIC — Baca Komik</title>
+<meta name="theme-color" content="#111116">
+<title>LIDCOMIC — Manga Reader</title>
 <style>
-:root{--bg:#101116;--panel:#191a22;--red:#e5484d;--text:#f5f5f7;--muted:#999ba8}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
-header{background:#191a22;padding:16px;position:sticky;top:0;z-index:5;border-bottom:1px solid #292a35}
-.top{max-width:1100px;margin:auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.logo{font-size:24px;font-weight:900;color:var(--red);letter-spacing:1px}
+:root{--bg:#111116;--panel:#1b1b24;--line:#30303b;--red:#ed4248;--muted:#a5a5b2}
+body{margin:0;background:var(--bg);color:#f7f7fb;font-family:Arial,sans-serif}
+header{background:#191920;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10}
+.nav{max-width:1100px;margin:auto;padding:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.logo{font-size:24px;font-weight:900;color:var(--red)}
 .logo span{color:white}
-.search{flex:1;min-width:180px;background:#101116;color:white;border:1px solid #353642;padding:12px;border-radius:9px}
-button{cursor:pointer;border:0;border-radius:8px;padding:10px 14px;background:var(--red);color:white;font-weight:bold}
-main{max-width:1100px;margin:auto;padding:20px 14px}
-h2{font-size:20px;margin:22px 0 14px}
-.hero{padding:26px;border-radius:14px;background:linear-gradient(120deg,#4a162d,#25203f 65%,#171820);margin-bottom:24px}
-.hero h1{margin:0 0 10px;font-size:30px}
-.hero p{color:#ddd;line-height:1.5}
-.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
-.filters button{background:#252631}
-.filters button.active{background:var(--red)}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-.card{background:var(--panel);border-radius:10px;overflow:hidden;cursor:pointer;border:1px solid #292a35}
-.card img{width:100%;aspect-ratio:3/4;object-fit:cover;background:#252631;display:block}
-.info{padding:10px}
-.info h3{font-size:14px;line-height:1.4;margin:0 0 7px}
-.info p{font-size:12px;color:var(--muted);margin:0}
-.tag{display:inline-block;background:#342128;color:#ffafb2;padding:4px 7px;border-radius:5px;font-size:11px;margin-top:8px}
-#status{color:var(--muted);font-size:13px;margin:12px 0}
+input,select{background:#101015;color:white;border:1px solid var(--line);padding:12px;border-radius:8px;min-width:0}
+#search{flex:1}
+button{border:0;border-radius:8px;padding:11px 14px;background:var(--red);color:white;font-weight:bold;cursor:pointer}
+button:disabled{opacity:.5}
+main{max-width:1100px;margin:auto;padding:18px 14px}
+.hero{padding:24px;border-radius:14px;background:linear-gradient(120deg,#591b36,#292342,#191920);margin-bottom:22px}
+.hero h1{font-size:30px;margin:0 0 10px}
+.hero p{color:#dedee6;line-height:1.5}
+.muted{color:var(--muted)}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.toolbar select{flex:1}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;cursor:pointer}
+.card img{width:100%;aspect-ratio:3/4;object-fit:cover;background:#292934;display:block}
+.card .info{padding:10px}
+.card h3{font-size:14px;line-height:1.4;margin:0 0 7px}
+.card p{font-size:12px;color:var(--muted);margin:0}
 .hidden{display:none!important}
-.back{background:#30313c;margin-bottom:15px}
-.cover{width:130px;max-width:40%;border-radius:8px;float:left;margin:0 16px 12px 0}
-.detail h1{font-size:24px}
-.detail p{color:#c5c5ce;line-height:1.6}
-.chapters{clear:both;padding-top:16px}
-.chapter{display:block;width:100%;text-align:left;background:var(--panel);border:1px solid #30313c;margin:6px 0;padding:13px}
-.reader img{display:block;width:100%;height:auto;max-width:850px;margin:auto}
+.back{background:#30303b;margin-bottom:16px}
+.cover{float:left;width:125px;max-width:40%;margin:0 15px 12px 0;border-radius:8px}
+.desc{white-space:pre-line;line-height:1.6;color:#d4d4dc}
+.chapters{clear:both;padding-top:18px}
+.chapter{display:block;text-align:left;width:100%;margin:6px 0;background:var(--panel);border:1px solid var(--line);font-weight:normal}
 .reader{text-align:center}
-.reader h2{line-height:1.4}
-.reader-controls{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:15px 0}
-footer{text-align:center;padding:25px;color:var(--muted);font-size:12px}
-@media(min-width:600px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}.hero h1{font-size:36px}}
+.reader img{display:block;width:100%;height:auto;max-width:850px;margin:auto}
+.reader-controls{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:15px 0}
+#status{padding:10px 0;color:var(--muted);font-size:14px}
+footer{text-align:center;color:var(--muted);padding:25px;font-size:12px}
+@media(min-width:560px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media(min-width:900px){.grid{grid-template-columns:repeat(6,minmax(0,1fr))}}
 </style>
 </head>
 <body>
-<header><div class="top">
+<header><div class="nav">
 <div class="logo">LID<span>COMIC</span></div>
-<input id="search" class="search" placeholder="Cari judul komik..." />
-<button onclick="loadComics()">Cari</button>
+<input id="search" placeholder="Cari judul manga / manhwa...">
+<button id="searchBtn">Cari</button>
 </div></header>
 <main>
 <section id="home">
 <div class="hero">
-<h1>Dunia Komik, Satu Tempat.</h1>
-<p>Temukan manga, manhwa, dan manhua favoritmu. Pilih judul, buka chapter, lalu baca langsung.</p>
-<button onclick="loadComics()">Jelajahi Komik</button>
+<h1>Baca komik favoritmu.</h1>
+<p>Manga · Manhwa · Manhua</p>
+<p class="muted">Cari judul, pilih komik, lalu buka chapter untuk membaca.</p>
 </div>
-<h2>Jelajahi Katalog</h2>
-<div class="filters">
-<button class="active" onclick="setLang('id',this)">Indonesia</button>
-<button onclick="setLang('en',this)">English</button>
-<button onclick="setOrder('followedCount',this)">Populer</button>
-<button onclick="setOrder('latestUploadedChapter',this)">Terbaru</button>
+<h2>Katalog Komik</h2>
+<div class="toolbar">
+<select id="language">
+<option value="id">Terjemahan Indonesia</option>
+<option value="en">English</option>
+</select>
+<select id="sort">
+<option value="followedCount">Paling populer</option>
+<option value="latestUploadedChapter">Chapter terbaru</option>
+<option value="createdAt">Terbaru ditambahkan</option>
+</select>
+<button id="reload">Muat ulang</button>
 </div>
 <div id="status">Menghubungkan ke katalog...</div>
 <div id="grid" class="grid"></div>
+<div class="toolbar"><button id="more" class="hidden">Muat lebih banyak</button></div>
 </section>
 <section id="detail" class="hidden"></section>
 <section id="reader" class="hidden reader"></section>
 </main>
-<footer>LIDCOMIC © 2026 · Dibuat untuk pembaca komik</footer>
+<footer>LIDCOMIC · Website komik untuk pembaca</footer>
 <script>
+'use strict';
 const API='https://api.mangadex.org';
-let lang='id',order='followedCount',offset=0,loading=false;
 const $=id=>document.getElementById(id);
-function esc(s=''){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function titleOf(m){return m.attributes.title?.id||m.attributes.title?.en||Object.values(m.attributes.title||{})[0]||'Tanpa judul'}
-function coverOf(m){let c=m.relationships?.find(r=>r.type==='cover_art');return c?.attributes?.fileName?`https://uploads.mangadex.org/covers/${m.id}/${c.attributes.fileName}.256.jpg`:''}
-function show(section){['home','detail','reader'].forEach(id=>$(id).classList.toggle('hidden',id!==section));window.scrollTo(0,0)}
-function setLang(v,b){lang=v;document.querySelectorAll('.filters button').forEach(x=>x.classList.remove('active'));b.classList.add('active');loadComics()}
-function setOrder(v,b){order=v;document.querySelectorAll('.filters button').forEach(x=>x.classList.remove('active'));b.classList.add('active');loadComics()}
-async function loadComics(){
- if(loading)return;loading=true;offset=0;$('grid').innerHTML='';$('status').textContent='Memuat katalog...';show('home');
+let lang='id',sort='followedCount',offset=0,busy=false,currentManga='',lastSearch='';
+function esc(v=''){
+ return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function titleOf(m){
+ const t=m.attributes?.title||{};
+ return t[lang]||t.en||t.ja||Object.values(t)[0]||'Tanpa judul';
+}
+function coverOf(m,size='256'){
+ const c=m.relationships?.find(x=>x.type==='cover_art');
+ return c?.attributes?.fileName?`https://uploads.mangadex.org/covers/${m.id}/${encodeURIComponent(c.attributes.fileName)}.${size}.jpg`:'';
+}
+function show(id){
+ ['home','detail','reader'].forEach(x=>$(x).classList.toggle('hidden',x!==id));
+ window.scrollTo({top:0,behavior:'instant'});
+}
+function message(s){$('status').textContent=s}
+function paramsForCatalog(start){
+ const p=new URLSearchParams();
+ p.set('limit','24');p.set('offset',String(start));
+ p.set('order['+sort+']','desc');
+ p.append('includes[]','cover_art');
+ p.set('hasAvailableChapters','true');
+ p.append('contentRating[]','safe');
+ p.append('contentRating[]','suggestive');
+ p.append('availableTranslatedLanguage[]',lang);
+ const term=$('search').value.trim();
+ if(term)p.set('title',term);
+ return p;
+}
+async function loadCatalog(reset=true){
+ if(busy)return;
+ busy=true;
+ $('reload').disabled=true;
+ $('searchBtn').disabled=true;
+ $('more').classList.add('hidden');
+ if(reset){offset=0;$('grid').innerHTML='';lastSearch=$('search').value.trim();show('home')}
+ message('Memuat katalog komik...');
  try{
- let q=new URLSearchParams({limit:'24',offset:'0',order:[order]+'[desc]',includes:['cover_art'],hasAvailableChapters:'true'});
- q.append('availableTranslatedLanguage[]',lang);q.append('contentRating[]','safe');q.append('contentRating[]','suggestive');
- let term=$('search').value.trim();if(term)q.set('title',term);
- let r=await fetch(API+'/manga?'+q.toString());if(!r.ok)throw Error('HTTP '+r.status);
- let data=await r.json();let list=data.data||[];
- if(!list.length&&lang==='id'&&!term){lang='en';return await loadFallback()}
- render(list);$('status').textContent=list.length?`${list.length} komik ditemukan`:'Komik tidak ditemukan. Coba bahasa English.';
- }catch(e){$('status').textContent='Katalog gagal dimuat. Periksa internet atau coba lagi.';console.error(e)}
- finally{loading=false}
+  const p=paramsForCatalog(offset);
+  const res=await fetch(API+'/manga?'+p.toString());
+  if(!res.ok)throw Error('HTTP '+res.status);
+  const json=await res.json();
+  let list=json.data||[];
+  if(!list.length&&lang==='id'&&!lastSearch){
+   const backup=new URLSearchParams();
+   backup.set('limit','24');backup.set('offset',String(offset));
+   backup.set('order[followedCount]','desc');backup.append('includes[]','cover_art');
+   backup.set('hasAvailableChapters','true');
+   backup.append('contentRating[]','safe');backup.append('availableTranslatedLanguage[]','en');
+   const r2=await fetch(API+'/manga?'+backup);
+   if(r2.ok){list=(await r2.json()).data||[]}
+  }
+  if(reset)$('grid').innerHTML='';
+  if(!list.length&&offset===0){
+   message('Komik tidak ditemukan untuk pilihan ini. Coba English atau judul lain.');
+  }else{
+   renderCards(list);
+   message('Menampilkan '+$('grid').children.length+' komik.');
+   offset+=list.length;
+   if(list.length>=24)$('more').classList.remove('hidden');
+  }
+ }catch(e){
+  message('Koneksi katalog gagal. Periksa internet, lalu tekan Muat ulang.');
+  console.error('LIDCOMIC catalog:',e);
+ }finally{
+  busy=false;$('reload').disabled=false;$('searchBtn').disabled=false;
+ }
 }
-async function loadFallback(){
- try{let q=new URLSearchParams({limit:'24',order:['followedCount']+'[desc]',includes:['cover_art'],hasAvailableChapters:'true'});q.append('availableTranslatedLanguage[]','en');q.append('contentRating[]','safe');let r=await fetch(API+'/manga?'+q);let d=await r.json();render(d.data||[]);$('status').textContent='Menampilkan komik berbahasa Inggris karena katalog Indonesia kosong.'}
- catch(e){$('status').textContent='Koneksi katalog gagal. Coba lagi nanti.'}
-}
-function render(list){
- $('grid').innerHTML=list.map(m=>`<article class="card" onclick="openManga('${m.id}')"><img loading="lazy" src="${esc(coverOf(m))}" alt="" onerror="this.style.visibility='hidden'"><div class="info"><h3>${esc(titleOf(m))}</h3><p>${esc(m.attributes.status||'Komik')}</p><span class="tag">Baca komik</span></div></article>`).join('');
+function renderCards(list){
+ const html=list.map(m=>{
+  const img=coverOf(m);
+  return `<article class="card" tabindex="0" role="button" onclick="openManga('${m.id}')" onkeydown="if(event.key==='Enter')openManga('${m.id}')">
+  <img loading="lazy" src="${esc(img)}" alt="Cover ${esc(titleOf(m))}" onerror="this.style.opacity='.15'">
+  <div class="info"><h3>${esc(titleOf(m))}</h3><p>${esc(m.attributes.status||'Komik')}</p></div></article>`;
+ }).join('');
+ $('grid').insertAdjacentHTML('beforeend',html);
 }
 async function openManga(id){
- show('detail');$('detail').innerHTML='<p>Memuat detail komik...</p>';
+ currentManga=id;show('detail');
+ $('detail').innerHTML='<button class="back" onclick="show(\\'home\\')">← Katalog</button><p>Memuat detail komik...</p>';
  try{
- let r=await fetch(API+'/manga/'+id+'?includes[]=cover_art');if(!r.ok)throw Error();let d=(await r.json()).data;
- let rel=d.relationships.find(x=>x.type==='cover_art');let cover=rel?.attributes?.fileName?`https://uploads.mangadex.org/covers/${id}/${rel.attributes.fileName}.512.jpg`:'';
- let tags=(d.attributes.tags||[]).map(t=>t.attributes.name[lang]||t.attributes.name.en).filter(Boolean).slice(0,8);
- $('detail').innerHTML=`<button class="back" onclick="show('home')">← Kembali</button><div class="detail"><img class="cover" src="${esc(cover)}"><h1>${esc(titleOf(d))}</h1><p>Status: ${esc(d.attributes.status||'-')}</p><p>${esc(d.attributes.description?.[lang]||d.attributes.description?.en||'Deskripsi belum tersedia.')}</p><p>${tags.map(esc).join(' · ')}</p></div><div class="chapters"><h2>Daftar Chapter</h2><div id="chapterList">Memuat chapter...</div></div>`;
- loadChapters(id);
- }catch(e){$('detail').innerHTML='<button class="back" onclick="show(\'home\')">← Kembali</button><p>Detail gagal dimuat. Coba lagi.</p>'}
+  const r=await fetch(API+'/manga/'+id+'?includes[]=cover_art');
+  if(!r.ok)throw Error('Detail HTTP '+r.status);
+  const m=(await r.json()).data;
+  const cover=coverOf(m,'512');
+  const tags=(m.attributes.tags||[]).map(t=>t.attributes?.name?.[lang]||t.attributes?.name?.en).filter(Boolean);
+  $('detail').innerHTML=`<button class="back" onclick="show('home')">← Kembali ke katalog</button>
+  <div><img class="cover" src="${esc(cover)}" alt="Cover">
+  <h1>${esc(titleOf(m))}</h1><p class="muted">Status: ${esc(m.attributes.status||'-')}</p>
+  <p class="desc">${esc(m.attributes.description?.[lang]||m.attributes.description?.en||'Deskripsi belum tersedia.')}</p>
+  <p class="muted">${tags.slice(0,10).map(esc).join(' · ')}</p></div>
+  <div class="chapters"><h2>Daftar Chapter</h2><div id="chapterList">Memuat chapter...</div></div>`;
+  loadChapters(id);
+ }catch(e){
+  $('detail').innerHTML='<button class="back" onclick="show(\\'home\\')">← Kembali</button><p>Detail gagal dimuat. Coba lagi.</p>';
+ }
 }
 async function loadChapters(id){
+ const box=$('chapterList');
  try{
- let q=new URLSearchParams({limit:'100',order:['chapter']+'[desc]',includes:['scanlation_group'],translatedLanguage:[lang]});q.append('contentRating[]','safe');
- let r=await fetch(API+'/manga/'+id+'/feed?'+q);let d=await r.json();let chapters=d.data||[];
- if(!chapters.length&&lang==='id'){let q2=new URLSearchParams({limit:'100',order:['chapter']+'[desc]',translatedLanguage:['en']});q2.append('contentRating[]','safe');let r2=await fetch(API+'/manga/'+id+'/feed?'+q2);chapters=(await r2.json()).data||[]}
- $('chapterList').innerHTML=chapters.length?chapters.map(c=>`<button class="chapter" onclick="readChapter('${c.id}','${esc(c.attributes.chapter||'?')}','${esc(c.attributes.title||'')}')">Chapter ${esc(c.attributes.chapter||'?')} ${esc(c.attributes.title||'')}</button>`).join(''):'Chapter belum tersedia dalam bahasa pilihan.';
- }catch(e){$('chapterList').textContent='Gagal memuat chapter.'}
+  async function getFeed(language){
+   const p=new URLSearchParams();
+   p.set('limit','100');p.set('order[chapter]','desc');
+   p.append('translatedLanguage[]',language);
+   p.append('contentRating[]','safe');
+   p.append('includes[]','scanlation_group');
+   const r=await fetch(API+'/manga/'+id+'/feed?'+p);
+   if(!r.ok)throw Error('Feed HTTP '+r.status);
+   return (await r.json()).data||[];
+  }
+  let chapters=await getFeed(lang);
+  if(!chapters.length&&lang==='id')chapters=await getFeed('en');
+  if(!chapters.length){box.textContent='Belum ada chapter yang tersedia dalam bahasa ini.';return}
+  box.innerHTML=chapters.map(c=>`<button class="chapter" onclick="readChapter('${c.id}','${esc(c.attributes.chapter||'?')}','${esc(c.attributes.title||'')}')">Chapter ${esc(c.attributes.chapter||'?')} ${esc(c.attributes.title||'')}</button>`).join('');
+ }catch(e){box.textContent='Chapter gagal dimuat. Coba lagi nanti.'}
 }
 async function readChapter(id,num,name){
- show('reader');$('reader').innerHTML=`<button class="back" onclick="history.back();show('detail')">← Kembali ke komik</button><h2>Chapter ${esc(num)} ${esc(name)}</h2><p>Memuat halaman...</p>`;
+ show('reader');
+ $('reader').innerHTML=`<button class="back" onclick="show('detail')">← Kembali ke komik</button><h2>Chapter ${esc(num)} ${esc(name)}</h2><p>Memuat halaman...</p>`;
  try{
- let r=await fetch(API+'/at-home/server/'+id);if(!r.ok)throw Error();let d=await r.json();
- let imgs=(d.chapter.data||[]).map(file=>`${d.baseUrl}/data/${d.chapter.hash}/${file}`);
- $('reader').innerHTML=`<button class="back" onclick="show('detail')">← Kembali ke komik</button><h2>Chapter ${esc(num)} ${esc(name)}</h2><div class="reader-controls"><button onclick="window.scrollTo({top:0,behavior:'smooth'})">Ke atas</button><button onclick="show('detail')">Daftar chapter</button></div>`+imgs.map((src,i)=>`<img loading="${i<3?'eager':'lazy'}" src="${esc(src)}" alt="Halaman ${i+1}">`).join('')+`<div class="reader-controls"><button onclick="show('detail')">Kembali ke chapter</button></div>`;
- }catch(e){$('reader').innerHTML='<button class="back" onclick="show(\'detail\')">← Kembali</button><p>Halaman gagal dimuat. Coba chapter lain.</p>'}
+  const r=await fetch(API+'/at-home/server/'+id);
+  if(!r.ok)throw Error('Pages HTTP '+r.status);
+  const d=await r.json();
+  const files=d.chapter?.data||[];
+  if(!files.length)throw Error('Tidak ada halaman');
+  const images=files.map(f=>d.baseUrl+'/data/'+d.chapter.hash+'/'+encodeURIComponent(f));
+  $('reader').innerHTML=`<button class="back" onclick="show('detail')">← Daftar chapter</button><h2>Chapter ${esc(num)} ${esc(name)}</h2><div class="reader-controls"><button onclick="window.scrollTo({top:0,behavior:'smooth'})">Ke atas</button><button onclick="show('detail')">Daftar chapter</button></div>`+
+  images.map((src,i)=>`<img loading="${i<2?'eager':'lazy'}" src="${esc(src)}" alt="Halaman ${i+1}" onerror="this.alt='Halaman gagal dimuat';this.style.minHeight='80px'">`).join('')+
+  `<div class="reader-controls"><button onclick="show('detail')">Kembali ke komik</button></div>`;
+ }catch(e){
+  $('reader').innerHTML=`<button class="back" onclick="show('detail')">← Kembali</button><p>Halaman gagal dimuat. Coba chapter lain atau periksa koneksi.</p>`;
+ }
 }
-$('search').addEventListener('keydown',e=>{if(e.key==='Enter')loadComics()});
-loadComics();
+$('searchBtn').addEventListener('click',()=>loadCatalog(true));
+$('search').addEventListener('keydown',e=>{if(e.key==='Enter')loadCatalog(true)});
+$('reload').addEventListener('click',()=>loadCatalog(true));
+$('more').addEventListener('click',()=>loadCatalog(false));
+$('language').addEventListener('change',()=>{lang=$('language').value;loadCatalog(true)});
+$('sort').addEventListener('change',()=>{sort=$('sort').value;loadCatalog(true)});
+loadCatalog();
 </script>
 </body>
 </html>
